@@ -1,0 +1,54 @@
+@charset "UTF-8";
+body {
+	font-size: 9pt;
+	color: black;
+	line-height: 160%;
+	font-family:;
+}
+td {
+	font-size: 9pt;
+	color: black;
+	line-height: 160%;
+	font-family:;
+}
+select {
+	font-size: 9pt;
+	color: black;
+	line-height: 160%;
+	font-family:;
+}
+div {
+	font-size: 9pt;
+	color: black;
+	line-height: 160%;
+	font-family:;
+}
+form {
+	font-size: 9pt;
+	color: black;
+	line-height: 160%;
+	font-family:;
+}
+textarea {
+	border-right: 1px solid #999999;
+	border-top: 1px solid #999999;
+	font-size: 9pt;
+	border-left: 1px solid #999999;
+	color: black;
+	border-bottom: 1px solid #999999;
+	font-family:;
+	background-color: white
+}
+input {
+	border-right: 1px solid #999999;
+	border-top: 1px solid #999999;
+	font-size: 9pt;
+	border-left: 1px solid #999999;
+	color: black;
+	border-bottom: 1px solid #999999;
+	font-family:;
+	background-color: white
+}
+A:link {text-decoration:nonecolor:#696969}
+A:hover {text-decoration:yescolor:#66CCFF}
+A:visited {text-decoraion:nonecolir:#330066}
