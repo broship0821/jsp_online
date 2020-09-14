@@ -2,7 +2,8 @@
 <%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="dao" class="memberone.StudentDAO"></jsp:useBean>
+<%@page import="memberone.StudentDAO"%>
+<% StudentDAO dao = StudentDAO.getInstance(); %>
 <%
 	request.setCharacterEncoding("utf-8");
 	String check = request.getParameter("check");

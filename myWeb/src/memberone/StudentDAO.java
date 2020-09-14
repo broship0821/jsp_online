@@ -11,7 +11,21 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class StudentDAO {
-	private Connection getConnection() {
+	
+	private static StudentDAO instance = null; //멤버필드
+	
+	private StudentDAO() {} //프라이빗 생성자
+	
+	public static StudentDAO getInstance() { //메소드
+		if(instance==null) {
+			synchronized (StudentDAO.class) {
+				instance = new StudentDAO();
+			}
+		}
+		return instance;
+	}
+	
+	private Connection getConnection() { //톰캣이 제공하는 커낵션풀 사용하는 방법
 		Connection conn = null;
 		try {
 			Context init = new InitialContext();

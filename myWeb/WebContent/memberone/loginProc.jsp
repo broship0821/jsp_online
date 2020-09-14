@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="dao" class="memberone.StudentDAO"></jsp:useBean>
+<%@page import="memberone.StudentDAO"%>
+<% StudentDAO dao = StudentDAO.getInstance(); %>
 <%
 	String id = request.getParameter("id");
 	String pass = request.getParameter("pass");
