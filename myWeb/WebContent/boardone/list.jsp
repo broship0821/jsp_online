@@ -6,20 +6,30 @@
     pageEncoding="UTF-8"%>
 <%@ include file="view/color.jsp" %>
 <%!
-	//수정(1)
+	int pageSize = 5;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 <%
-	//수정(2)
+	String pageNum = request.getParameter("pageNum");
+	if(pageNum==null){
+		pageNum="1";
+	}
+	int currentPage = Integer.parseInt(pageNum);
+	int startRow = (currentPage-1)*pageSize + 1;
+	int endRow = currentPage * pageSize;
+	//1페이지: 시작1, 끝5
+	//2페이지: 시작6, 끝10
+	//3페이지: 시작11, 끝15...
+	
 	int count = 0;
 	int number = 0;
 	List<BoardVO> articleList = null;
 	BoardDAO dbPro = BoardDAO.getInstance();
 	count = dbPro.getArticleCount();
 	if(count>0){
-		articleList = dbPro.getArticles();//수정(3)
+		articleList = dbPro.getArticles(startRow, endRow);
 	}
-	number = count;//수정(4)
+	number = count-(currentPage-1)*pageSize; //번호 5개씩 보여줌
 %>
 <!DOCTYPE html>
 <html>
@@ -63,9 +73,17 @@
 					<tr height="30">
 						<td align="center" width="50"> <%=number-- %></td>
 						<td width="250">
-							<!-- 수정(5) -->
-							<a href="content.jsp?num=<%=article.getNum() %>&pageNum=1">
-								<!-- 수정(6) -->
+							<%
+								int wid = 0;
+								if(article.getDepth()>0){
+									wid = 5*article.getDepth();
+							%>
+									<img src="images/level.gif" width="<%=wid %>" height="16">
+									<img src="images/re.gif">
+							<%	} else {%>
+									<img src="images/level.gif" width="<%=wid %>" height="16">
+							<%	} %>
+							<a href="content.jsp?num=<%=article.getNum() %>&pageNum=<%=currentPage%>">
 								<%=article.getSubject() %>
 							</a>
 							<%if(article.getReadcount()>=20) {%>
@@ -88,7 +106,28 @@
 				<%} %>
 		</table>
 	<%} %>
-	<!-- 수정(7) -->
+	<%
+		if(count>0){
+			int pageBlock = 5;
+			int imsi = count % pageSize == 0 ? 0 : 1;
+			int pageCount = count / pageSize + imsi;
+			int startPage = (int)((currentPage-1)/pageBlock)*pageBlock + 1;
+			int endPage = startPage + pageBlock -1;
+			if(startPage>pageBlock){
+	%>
+				<a href="list.jsp?pageNum=<%=startPage-pageBlock %>">[이전]</a>
+	<%		}
+			for(int i=startPage; i<=endPage;i++){
+	%>
+				<a href="list.jsp?pageNum=<%=i %>">[<%=i %>]</a>
+	<%		}
+			if(endPage < pageCount){
+	%>
+				<a href="list.jsp?pageNum=<%=startPage+pageBlock %>">[다음]</a>
+	<%
+			}
+		}
+	%>
 </center>
 </body>
 </html>
